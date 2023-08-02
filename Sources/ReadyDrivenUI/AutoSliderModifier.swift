@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct AutoSliderModifier: ViewModifier {
     var delayTime: TimeInterval
     @Binding var selection: Int
@@ -26,6 +24,7 @@ struct AutoSliderModifier: ViewModifier {
     }
 }
 
+@available(macOS 11.0, *)
 extension TabView {
     func addAutoSliderAction(delayTime: TimeInterval, selection: Binding<Int>, itemCount: Int) -> some View {
         modifier(AutoSliderModifier(delayTime: delayTime, selection: selection, itemCount: itemCount))

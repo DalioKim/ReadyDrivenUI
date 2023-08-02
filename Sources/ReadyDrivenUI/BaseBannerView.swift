@@ -26,7 +26,6 @@ public struct BaseBannerView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     public var body: some View {
-        ZStack {
             TabView(selection : $selection) {
                 ForEach(tabItems) { item in
                     Image(item.image)
@@ -38,7 +37,6 @@ public struct BaseBannerView: View {
             .if(displayMode.isAutoSlide) {
                 $0.addAutoSliderAction(delayTime: 1, selection: $selection, itemCount: images.count)
             }
-        }
     }
 }
 
@@ -60,10 +58,12 @@ extension BaseBannerView {
     }
 }
 
+
+@available(macOS 10.15, *)
 extension BaseBannerView {
     private var tabItems: [TabItem] {
         images.enumerated().map { idx, item in
-            TabItem(icon: item, tag: idx)
+            TabItem(image: item, tag: idx)
         }
     }
 }
