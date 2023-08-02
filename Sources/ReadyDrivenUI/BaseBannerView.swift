@@ -48,7 +48,7 @@ extension BaseBannerView {
     }
 }
 
-extension BaseBannerView {
+public extension BaseBannerView {
     init(_ image: String) {
         self.init(images: [image], displayMode: DisplayMode.poster(false))
     }
