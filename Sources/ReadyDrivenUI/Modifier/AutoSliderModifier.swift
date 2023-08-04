@@ -15,7 +15,6 @@ struct AutoSliderModifier: ViewModifier {
     func body(content: Content) -> some View {
         let timer = Timer.publish(every: delayTime, on: .main, in: .common).autoconnect()
         return content
-            .tabViewStyle(PageTabViewStyle())
             .onReceive(timer, perform: { _ in
                 withAnimation{
                     $selection.wrappedValue = $selection.wrappedValue < itemCount ? $selection.wrappedValue + 1 : 0
@@ -24,8 +23,7 @@ struct AutoSliderModifier: ViewModifier {
     }
 }
 
-@available(macOS 11.0, *)
-extension TabView {
+extension View {
     func addAutoSliderAction(delayTime: TimeInterval, selection: Binding<Int>, itemCount: Int) -> some View {
         modifier(AutoSliderModifier(delayTime: delayTime, selection: selection, itemCount: itemCount))
     }
