@@ -11,9 +11,9 @@ extension View {
     @ViewBuilder
     func applyHandler(slide: Slide, selection: Binding<Int>) -> some View {
         switch slide.option {
-        case (.tab, .manual):
+        case (.tab, .manual, _):
             self.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        case (.tab, .auto):
+        case (.tab, .auto, _):
             self.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .addAutoSliderAction(delayTime: Slide.Opiton.defaultIntervalTime,
                                      selection: selection, itemCount: slide.items.count)

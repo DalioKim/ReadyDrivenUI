@@ -16,12 +16,16 @@ public struct Slide {
             case manual
             case auto
         }
+        public enum Controller {
+            case threedots
+        }
         
         static let defaultIntervalTime: Double = 1
-        
     }
     
-    let option: (style: Opiton.Style, mode: Opiton.Mode)
+
+    
+    let option: (style: Opiton.Style, mode: Opiton.Mode, controller: Opiton.Controller)
     let items: [Card.Item]
 }
 
