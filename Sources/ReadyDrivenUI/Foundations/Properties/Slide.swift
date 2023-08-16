@@ -23,9 +23,6 @@ public struct Slide {
         static let defaultIntervalTime: Double = 1
     }
     
-
-    
     let option: (style: Opiton.Style, mode: Opiton.Mode, controller: Opiton.Controller)
     let items: [Card.Item]
 }
-

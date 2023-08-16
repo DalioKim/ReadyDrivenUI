@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct BaseSlideView: View {
     public let uiModel: Slide
-    @State private var selection = 0
+    @State private var selection: Int
     
     public var body: some View {
         buildUI.applyHandler(slide: uiModel, selection: $selection)
@@ -17,23 +17,29 @@ public struct BaseSlideView: View {
     
     var buildUI: some View {
         mainLayer
-            .overlay(controllerLayer)
+            .overlay(controllerLayer.padding(), alignment: .bottom)
     }
     
     public init(images: [String], slideOpion: (Slide.Opiton.Style, Slide.Opiton.Mode, Slide.Opiton.Controller)) {
+        let images = slideOpion.1 == .manual ? images : [images.last ?? ""] + images
         let items = images.enumerated().map { Card.Item(mainContent: $1, subContents: [], tag: $0) }
+        
+        self.selection = slideOpion.1 == .manual ? 0 : 1
         self.uiModel =  Slide(option: slideOpion, items: items )
     }
 }
+
 
 // MARK: - Layer
 
 extension BaseSlideView {
     @ViewBuilder
     private var mainLayer: some View {
-        switch uiModel.option {
-        case (.tab, .manual, _): tabSlide
-        case (.tab, .auto, _): tabSlide
+        TabView(selection : $selection) {
+            ForEach(uiModel.items) {
+                BaseCardView(uiModel: Card(item: $0, optionStyle: .banner))
+                    .tag($0.tag)
+            }
         }
     }
     
@@ -43,30 +49,4 @@ extension BaseSlideView {
         case .threedots: ThreeDotsStyleControllerView(numberOfPages: uiModel.items.count, currentIndex: selection)
         }
     }
-}
-
-// MARK: - Layer
-
-extension BaseSlideView {
-    private var tabSlide: some View {
-        TabView(selection : $selection) {
-            ForEach(uiModel.items) {
-                BaseCardView(uiModel: Card(item: $0, optionStyle: .banner))
-                    .tag($0.tag)
-            }
-        }
-    }
-    
-    private var autoTabSlide: some View {
-        TabView(selection : $selection) {
-            ForEach(uiModel.items) {
-                BaseCardView(uiModel: Card(item: $0, optionStyle: .banner))
-//                    .tag($0.tag)
-            }
-        }
-    }
-
-    
-
-    
 }

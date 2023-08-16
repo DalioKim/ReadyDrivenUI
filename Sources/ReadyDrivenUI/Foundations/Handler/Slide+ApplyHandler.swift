@@ -16,7 +16,7 @@ extension View {
         case (.tab, .auto, _):
             self.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .addAutoSliderAction(delayTime: Slide.Opiton.defaultIntervalTime,
-                                     selection: selection, itemCount: slide.items.count)
+                                     selection: selection, itemCount: slide.items.count - 1)
         }
     }
 }

@@ -16,8 +16,10 @@ struct AutoSliderModifier: ViewModifier {
         let timer = Timer.publish(every: delayTime, on: .main, in: .common).autoconnect()
         return content
             .onReceive(timer, perform: { _ in
+                $selection.wrappedValue = $selection.wrappedValue == itemCount ? 0 : $selection.wrappedValue
+
                 withAnimation{
-                    $selection.wrappedValue = $selection.wrappedValue < itemCount ? $selection.wrappedValue + 1 : 0
+                    $selection.wrappedValue += 1
                 }
             })
     }
