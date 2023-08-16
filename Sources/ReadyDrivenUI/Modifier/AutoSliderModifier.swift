@@ -22,6 +22,12 @@ struct AutoSliderModifier: ViewModifier {
                     $selection.wrappedValue += 1
                 }
             })
+            .gesture(
+                DragGesture()
+                    .onChanged { _ in
+                        timer.upstream.connect().cancel()
+                    }
+                )
     }
 }
 
