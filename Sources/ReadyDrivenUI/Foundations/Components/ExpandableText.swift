@@ -37,7 +37,7 @@ extension ExpandableText {
         _shrinkText =  State(wrappedValue: text)
         self.lineLimit = lineLimit
         self.textSet = TextSet(text: text, font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body), color: .gray)
-        self.option = (layout: trigger == .text ? .zStack : .vStack, trigger: trigger)
+        self.option = (layout: trigger == .text ? .zStack(alignment: .bottomTrailing) : .vStack(spacing: 10), trigger: trigger)
     }
 }
 

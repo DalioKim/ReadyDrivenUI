@@ -14,7 +14,7 @@ public struct AnyLayout<Content>: View where Content: View {
     private let option: Option
     
     public init(_ option: Option,
-         @ViewBuilder content: @escaping () -> Content) {
+                @ViewBuilder content: @escaping () -> Content) {
         self.option = option
         self.content = content
     }
@@ -22,18 +22,18 @@ public struct AnyLayout<Content>: View where Content: View {
     public var body: some View {
         Group {
             switch option {
-            case .hStack:
-                HStack {
+            case let .hStack(alignment, spacing):
+                HStack(alignment: alignment, spacing: spacing) {
                     content()
                 }
                 
-            case .zStack:
-                ZStack(alignment: .bottomTrailing){
+            case let .zStack(alignment):
+                ZStack(alignment: alignment) {
                     content()
                 }
                 
-            case .vStack:
-                VStack {
+            case let .vStack(alignment, spacing):
+                VStack(alignment: alignment, spacing: spacing) {
                     content()
                 }
             }
