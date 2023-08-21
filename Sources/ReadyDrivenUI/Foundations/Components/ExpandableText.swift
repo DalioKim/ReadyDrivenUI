@@ -19,10 +19,6 @@ public struct ExpandableText: View {
     private let lineLimit: Int
         
     public var body: some View {
-        buildUI.applyHandler(isExpanded: $isExpanded, isTuncated: $isTuncated, shrinkText: $shrinkText, textSet: textSet, trailingText: " ... read more", lineLimit: lineLimit)
-    }
-    
-    var buildUI: some View {
         AnyLayout(option.layout) {
             textLayer
             buttonLayer
@@ -55,6 +51,7 @@ extension ExpandableText {
                 Text(mainText)
             }
         }
+        .setExpandable(isExpanded: $isExpanded, isTuncated: $isTuncated, shrinkText: $shrinkText, text: textSet.text, trailingText: " ... read more", font: textSet.font, lineLimit: lineLimit)
     }
     
     private var buttonLayer: some View {
@@ -70,13 +67,15 @@ extension ExpandableText {
                     }
                     .opacity(0)
                 })
-                
+                    
             case (.button, true):
-                Button(action: {
-                    isExpanded.toggle()
-                }, label: {
-                    Text("더보기")
-                })
+                Toggle("", isOn: $isExpanded)
+                    .toggleStyle(Icon(images: (on: "angleUp", off: "angleDown"), onAction: {
+                        isExpanded.toggle()
+                    }, offAction: {
+                        isExpanded.toggle()
+                    }))
+                
             default: EmptyView()
             }
         }
