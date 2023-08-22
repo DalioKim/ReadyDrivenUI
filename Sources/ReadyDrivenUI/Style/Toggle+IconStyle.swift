@@ -21,10 +21,7 @@ struct Icon: ToggleStyle {
                 configuration.label
             } icon: {
                 Image(configuration.isOn ? images.on : images.off, bundle: Bundle.module)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 30, height: 30)
-                    .foregroundColor(.white)
+                    .asIconStyle()
             }
         }
     }

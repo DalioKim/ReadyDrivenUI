@@ -7,11 +7,7 @@
 
 import SwiftUI
 
-public struct Description {
-    public enum Opiton {
-        public enum Style {
-            case more(_: Expandable)
-            case list
-        }
-    }
+public enum Description {
+    case more(description: (option: (trigger: Expandable.Trigger, transition: Expandable.Transition), item: TextSet))
+    case list(_ descriptions: [Description.ItemStyle])
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 public struct ExpandableText: View {
-    private typealias Option = (layout: Layout.Option, trigger: Expandable.Opiton.Trigger)
+    private typealias Option = (layout: Layout.Option, trigger: Expandable.Trigger)
     
     @State private var isExpanded = false
     @State private var isTuncated = false
@@ -29,7 +29,7 @@ public struct ExpandableText: View {
 // MARK: - Public Initialize
 
 extension ExpandableText {
-    public init(_ text: String, lineLimit: Int, trigger: Expandable.Opiton.Trigger) {
+    public init(_ text: String, lineLimit: Int, trigger: Expandable.Trigger) {
         _shrinkText =  State(wrappedValue: text)
         self.lineLimit = lineLimit
         self.textSet = TextSet(text: text, font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body), color: .gray)
