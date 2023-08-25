@@ -1,5 +1,5 @@
 //
-//  Font+Custom.swift
+//  FontExtension.swift
 //
 //
 //  Created by 김동현 on 2023/08/24.
@@ -39,12 +39,14 @@ fileprivate func registerIfNeeded(_ family: Font.Family, _ weight: Font.CustomWe
 #endif
 }
 
-extension Font {
-    enum Family: String {
+public extension Font {
+    typealias Option = (family: Family, weight: CustomWeight, size: Size)
+    
+    enum Family: String, CaseIterable {
         case suite = "SUITE"
     }
     
-    enum CustomWeight: String {
+    enum CustomWeight: String, CaseIterable {
         case regular = "Regular"
         case medium = "Medium"
         case light = "Light"
@@ -64,5 +66,13 @@ extension Font {
     init(_ family: Family = .suite, _ weight: CustomWeight, _ scaledSize: CGFloat) {
         registerIfNeeded(family, weight)
         self.init(UIFont(name: rawName(family, weight), size: scaledSize) ?? .systemFont(ofSize: scaledSize))
+    }
+}
+
+extension Font {
+    static func registerAllFonts() {
+        Family.allCases.forEach { family in
+            CustomWeight.allCases.forEach { register(family, $0) }
+        }
     }
 }
